@@ -1,0 +1,6 @@
+ <% @movies.each do |movie| %>
+  <h2><%= link_to movie.title, movie_path(movie)%></h2>
+  <p><%= "#{movie.length} min." %></p>
+  <%= button_to "Book Ticket", movie_path(movie), method: :get  %>
+</div>
+<% end %>
