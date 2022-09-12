@@ -2,6 +2,7 @@ class MoviesController < ApplicationController
 
 def index 
   @movies = Movie.all
+  @screenings = Screening.all
 end
 
 def show

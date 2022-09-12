@@ -2,6 +2,8 @@
   <div class="movie">
     <h2><%= link_to movie.title, movie_path(movie)%></h2>
     <p><%= "#{movie.length} min." %></p>
-    <%= button_to "Book Ticket", movie_path(movie), method: :get %>
+    <%@screenings.each do |screening|%>
+      <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_path(movie), method: :get if screening.movie_id == movie.id%>
+    <% end %>
   </div>
 <% end %>
