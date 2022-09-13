@@ -3,4 +3,3 @@ class ScreeningsController < ApplicationController
     @screening = Screening.find(params[:id])
   end
 end
-

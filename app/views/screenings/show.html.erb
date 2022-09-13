@@ -1,4 +1,4 @@
 <h2><%= @screening.movie.title %></h2>
 <%= "#{@screening.start_time.strftime("%d/%m/%Y %H:%M")}" %>
-<p><%= "Hall no.#{@screening.hall.name}" %></p>
+<p><%= "Hall #{@screening.hall.name}" %></p>
 <%= button_to "Choose seats" %>

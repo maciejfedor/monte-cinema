@@ -3,7 +3,7 @@
   <p><%= "#{@movie.length} min." %></p>
 </div>
 <div class="screenings">
-  <% @screenings.each do |screening| %>
-    <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", screening_path(screening), method: :get%>
+  <% @movie.screenings.each do |screening| %>
+    <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_path(), method: :get%>
   <% end %>
 </div>

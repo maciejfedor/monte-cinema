@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   root 'movies#index'
-  resources :movies
-  resources :screenings
+  resources :movies do
+    resources :screenings
+  end
 end
