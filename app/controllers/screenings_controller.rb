@@ -1,8 +1,6 @@
 class ScreeningsController < ApplicationController
-
-def show
-  @screening = Screening.find(params[:id])
+  def show
+    @screening = Screening.find(params[:id])
+  end
 end
 
-
-end

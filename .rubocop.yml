@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+    - 'db/**/*'
+    - 'bin/**/*'
+Style/Documentation:
+  Enabled: false
