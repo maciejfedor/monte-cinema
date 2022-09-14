@@ -4,9 +4,5 @@ class Screening < ApplicationRecord
   validates :start_time, :end_time, presence: true
   validate :end_time_after_start_time
 
-  private
-
-  def end_time_after_start_time
-    errors.add(:end_time, 'cannot be before start time') if start_time > end_time
-  end
+  validates :end_time, comparison: { greater_than: :start_time }
 end
