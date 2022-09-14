@@ -77,7 +77,11 @@ GEM
     bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sassc (>= 2.0.0)
+    brakeman (5.3.1)
     builder (3.2.4)
+    bullet (7.0.3)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     capybara (3.37.1)
       addressable
       matrix
@@ -230,6 +234,7 @@ GEM
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.2.0)
+    uniform_notifier (1.16.0)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -253,6 +258,8 @@ PLATFORMS
 DEPENDENCIES
   bootsnap
   bootstrap-sass (= 3.4.1)
+  brakeman
+  bullet
   capybara
   debug
   importmap-rails
