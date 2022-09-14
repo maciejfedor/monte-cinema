@@ -1,0 +1,36 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  background-color: #D3D3D3;
+  font-family: "Oxygen", sans-serif;
+
+}
+
+h1 {
+  text-align: center;
+}
+
+a:link,
+a:visited {
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+
+
+.movie,
+.screenings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
