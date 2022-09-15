@@ -5,7 +5,7 @@ class Hall < ApplicationRecord
   validates :name, :capacity, presence: true
   validates :name, uniqueness: true
 
-  def make_seats
+  def seats_array
     (1..capacity).to_a
   end
 end
