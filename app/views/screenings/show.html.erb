@@ -1,4 +1,4 @@
 <h2><%= @screening.movie.title %></h2>
 <%= "#{@screening.start_time.strftime("%d/%m/%Y %H:%M")}" %>
 <p><%= "Hall #{@screening.hall.name}" %></p>
-<%= button_to "Choose seats" %>
+<%= button_to "Choose seats", new_screening_reservation_path(@screening), method: :get%>

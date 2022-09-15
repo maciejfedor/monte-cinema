@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :screenings
   end
 
- resources :screenings do
-   resources :reservations
- end
+  resources :screenings do
+    resources :reservations
+  end
 end
