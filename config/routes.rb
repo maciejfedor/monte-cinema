@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   resources :movies do
     resources :screenings
   end
+
+  resources :screenings do
+    resources :reservations
+  end
 end

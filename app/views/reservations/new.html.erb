@@ -1,0 +1,4 @@
+<%= form_with(url: screening_reservations_path, method: "post") do |f|%>
+  <%= f.select :seats, options_for_select(@screening.hall.seats_array), {}, {multiple: true, size: 10} %>
+  <%= f.submit 'Book a reservation' %>
+<% end %>
