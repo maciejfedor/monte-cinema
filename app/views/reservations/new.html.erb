@@ -1,4 +1,19 @@
+<h2><%= @screening.movie.title %></h2>
+<%= "#{@screening.start_time.strftime("%d/%m/%Y %H:%M")}" %>
+<p><%= "Hall #{@screening.hall.name}" %></p>
 <%= form_with(url: screening_reservations_path, method: "post") do |f|%>
-  <%= f.select :seats, options_for_select(@screening.hall.seats_array), {}, {multiple: true, size: 10} %>
-  <%= f.submit 'Book a reservation' %>
+  <% @screening.hall.seats_array.each do |seat| %>
+    <div class="form-check form-check-inline">
+      <%if @screening.available_seats.include?(seat)%>
+        <%= f.check_box :seats, { multiple: true, class: "form-check-input"}, seat, nil %>
+        <%= f.label :seats, seat, class: "form-check-label"%>
+      <%else%>
+        <%= f.check_box :seats, { multiple: true, class: "form-check-input", disabled: true}, seat, nil %>
+        <%= f.label :seats, seat, class: "form-check-label"%>
+      <% end %>
+    </div>
+  <% end %>
+  <div class = "form-group justify-content-center d-block p-3 m-3">
+    <%= f.submit 'Book a reservation', class: "btn btn-outline-light btn-lg" %>
+  </div>
 <% end %>
