@@ -14,17 +14,20 @@ class ReservationsController < ApplicationController
 
     else
       @reservation.save
-      params[:seats].each do |seat|
-        Ticket.create(reservation_id: @reservation.id, seat:)
-      end
-      redirect_to movies_path
-
+      create_tickets
     end
+    redirect_to movies_path
   end
+end
 
   private
 
-  def set_screening
-    @screening = Screening.find(params[:screening_id])
+def set_screening
+  @screening = Screening.find(params[:screening_id])
+end
+
+def create_tickets
+  params[:seats].each do |seat|
+    Ticket.create(reservation_id: @reservation.id, seat:)
   end
 end
