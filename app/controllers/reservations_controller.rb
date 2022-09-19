@@ -9,6 +9,7 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new(screening_id: params[:screening_id], status: :booked)
 
     if !params.key?(:seats)
+      @reservation.errors.add(:base, 'Please choose at least one seat')
       render :new, status: :unprocessable_entity
 
     else
