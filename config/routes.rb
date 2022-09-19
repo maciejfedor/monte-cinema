@@ -1,12 +1,10 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   root 'movies#index'
-  resources :movies do
-    resources :screenings
+  resources :movies, only: %i[show index] do
+    resources :screenings, only: [:show]
   end
 
-  resources :screenings do
-    resources :reservations
+  resources :screenings, only: [:show] do
+    resources :reservations, only: %i[new create]
   end
 end
