@@ -7,6 +7,6 @@ class Hall < ApplicationRecord
 
   def seats_array
     arr = (1..capacity).to_a
-    arr.map!(&:to_s)
+    arr.map(&:to_s)
   end
 end
