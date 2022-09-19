@@ -13,6 +13,6 @@ class Screening < ApplicationRecord
         taken_seats.push(t.seat)
       end
     end
-    hall.seats_array - taken_seats
+    hall.seats - taken_seats
   end
 end

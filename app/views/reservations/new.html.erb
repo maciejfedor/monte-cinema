@@ -2,7 +2,7 @@
 <%= "#{@screening.start_time.strftime("%d/%m/%Y %H:%M")}" %>
 <p><%= "Hall #{@screening.hall.name}" %></p>
 <%= form_with(url: screening_reservations_path, method: "post") do |f|%>
-  <% @screening.hall.seats_array.each do |seat| %>
+  <% @screening.hall.seats.each do |seat| %>
     <div class="form-check form-check-inline">
       <%if @screening.available_seats.include?(seat)%>
         <%= f.check_box :seats, { multiple: true, class: "form-check-input"}, seat, nil %>
