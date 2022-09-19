@@ -15,8 +15,8 @@ class ReservationsController < ApplicationController
     else
       @reservation.save
       create_tickets
+      redirect_to movies_path
     end
-    redirect_to movies_path
   end
 end
 
