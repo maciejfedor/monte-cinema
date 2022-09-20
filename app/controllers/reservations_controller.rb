@@ -2,20 +2,23 @@ class ReservationsController < ApplicationController
   before_action :set_screening, only: %i[new create]
   def new
     @reservation = Reservation.new
-    @screening = Screening.find(params[:screening_id])
   end
 
   def create
     @reservation = Reservation.new(screening_id: params[:screening_id], status: :booked)
 
-    if !params.key?(:seats)
+    unless params.key?(:seats)
       @reservation.errors.add(:base, 'Please choose at least one seat')
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity and return
+    end
 
-    else
+    if !(params[:seats] & @reservation.screening.available_seats).empty?
       @reservation.save
       create_tickets
       redirect_to screening_reservation_path(params[:screening_id], @reservation)
+    else
+      @reservation.errors.add(:base, 'It is already taken')
+      render :new, status: :unprocessable_entity
     end
   end
 
