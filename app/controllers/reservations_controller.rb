@@ -1,6 +1,8 @@
 class ReservationsController < ApplicationController
   before_action :set_screening, only: %i[new create]
+  before_action :set_reservation, only: %i[show update]
   def new
+ 
     @reservation = Reservation.new
   end
 
@@ -22,15 +24,25 @@ class ReservationsController < ApplicationController
     end
   end
 
+  def update
+    @reservation.update(status: params[:status]) 
+    redirect_to screening_reservation_path(params[:screening_id], @reservation)
+  end
+
   def show
-    @reservation = Reservation.find(params[:id])
   end
 end
+
+
 
   private
 
 def set_screening
   @screening = Screening.find(params[:screening_id])
+end
+
+def set_reservation
+  @reservation = Reservation.find(params[:id])
 end
 
 def create_tickets
