@@ -8,11 +8,9 @@ class Screening < ApplicationRecord
 
   def available_seats
     taken_seats = []
-    reservations.each do |r|
-      r.tickets.each do |t|
-        taken_seats.push(t.seat)
-      end
+    reservations.where.not(status: :cancelled).each do |reservation|
+      taken_seats << reservation.tickets.pluck(:seat)
     end
-    hall.seats - taken_seats
+    hall.seats - taken_seats.flatten
   end
 end
