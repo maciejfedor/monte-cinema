@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="card-header">
+  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= "Reservation nr.#{@reservation.id}"%></h5>
+    <h2><%= @reservation.screening.movie.title %></h2>
+    <p class="card-text"> <%= "#{@reservation.screening.start_time.strftime("%d/%m/%Y %H:%M")}" %></p>
+    <p class="card-text"><%= "Hall #{@reservation.screening.hall.name}" %></p>
+    <h3 class="card-text">Tickets</h3>
+    <% @reservation.tickets.each_with_index do |t, i|%>
+      <h4 class="card-text"><%= "Ticket #{i +1}" %></h4>
+      <p class="card-text"><%= "Seat #{t.seat}" %></p>
+      <p class="card-text"><%= "Ticket id: #{t.id}" %></p>
+    <% end %>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>

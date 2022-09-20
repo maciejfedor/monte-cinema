@@ -15,8 +15,12 @@ class ReservationsController < ApplicationController
     else
       @reservation.save
       create_tickets
-      redirect_to movies_path
+      redirect_to screening_reservation_path(params[:screening_id], @reservation)
     end
+  end
+
+  def show
+    @reservation = Reservation.find(params[:id])
   end
 end
 
