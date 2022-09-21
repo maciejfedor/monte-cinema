@@ -6,7 +6,7 @@
   <% @screening.hall.seats.each do |seat| %>
     <div class="form-check form-check-inline">
       <%= f.check_box :seats, { multiple: true, class: "form-check-input", 
-      disabled: (true if !@screening.available_seats.include?(seat) ), checked: false}, seat, false %>
+      disabled: (!@screening.available_seats.include?(seat) ), checked: false}, seat, false %>
       <%= f.label :seats, seat, class: "form-check-label"%>
     </div>
   <% end %>
