@@ -1,33 +1,45 @@
 class ReservationsController < ApplicationController
   before_action :set_screening, only: %i[new create]
+  before_action :set_reservation, only: %i[show update]
+
   def new
     @reservation = Reservation.new
-    @screening = Screening.find(params[:screening_id])
   end
 
   def create
-    @reservation = Reservation.new(screening_id: params[:screening_id], status: :booked)
+    @reservation = @screening.reservations.new(status: :booked)
 
-    if !params.key?(:seats)
-      @reservation.errors.add(:base, 'Please choose at least one seat')
-      render :new, status: :unprocessable_entity
-
-    else
-      @reservation.save
+    Reservation.transaction do
+      @reservation.save!
       create_tickets
-      redirect_to movies_path
+
+    rescue StandardError
+      render :new, status: :unprocessable_entity and return
     end
+
+    redirect_to screening_reservation_path(@screening, @reservation)
   end
-end
+
+  def update
+    @reservation.update(status: params[:status])
+    redirect_to screening_reservation_path(params[:screening_id], @reservation)
+  end
+
+  def show; end
 
   private
 
-def set_screening
-  @screening = Screening.find(params[:screening_id])
-end
+  def set_screening
+    @screening = Screening.find(params[:screening_id])
+  end
 
-def create_tickets
-  params[:seats].each do |seat|
-    Ticket.create(reservation_id: @reservation.id, seat:)
+  def set_reservation
+    @reservation = Reservation.find(params[:id])
+  end
+
+  def create_tickets
+    params[:seats].each do |seat|
+      @reservation.tickets.create(seat:)
+    end
   end
 end

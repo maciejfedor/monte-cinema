@@ -5,13 +5,9 @@
 <%= form_with(url: screening_reservations_path, method: "post") do |f|%>
   <% @screening.hall.seats.each do |seat| %>
     <div class="form-check form-check-inline">
-      <%if @screening.available_seats.include?(seat)%>
-        <%= f.check_box :seats, { multiple: true, class: "form-check-input"}, seat, nil %>
-        <%= f.label :seats, seat, class: "form-check-label"%>
-      <%else%>
-        <%= f.check_box :seats, { multiple: true, class: "form-check-input", disabled: true}, seat, nil %>
-        <%= f.label :seats, seat, class: "form-check-label"%>
-      <% end %>
+      <%= f.check_box :seats, { multiple: true, class: "form-check-input", 
+      disabled: (!@screening.available_seats.include?(seat) ), checked: false}, seat, false %>
+      <%= f.label :seats, seat, class: "form-check-label"%>
     </div>
   <% end %>
   <div class = "form-group justify-content-center d-block p-3 m-3">
