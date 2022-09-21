@@ -4,6 +4,6 @@ class Ticket < ApplicationRecord
   validate :seat_available?
 
   def seat_available?
-    raise StandardError, 'Seat taken' unless Reservation.find(reservation_id).screening.available_seats.include? seat
+    errors.add(seat: 'Seat taken') unless reservation.screening.available_seats.include? seat
   end
 end
