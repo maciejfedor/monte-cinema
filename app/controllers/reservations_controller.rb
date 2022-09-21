@@ -7,16 +7,17 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = Reservation.new(screening_id: params[:screening_id], status: :booked)
+    @reservation = @screening.reservations.new(status: :booked)
 
     Reservation.transaction do
       @reservation.save!
       create_tickets
-      redirect_to screening_reservation_path(params[:screening_id], @reservation)
 
     rescue StandardError
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_entity and return
     end
+
+    redirect_to screening_reservation_path(@screening, @reservation)
   end
 
   def update
@@ -38,7 +39,7 @@ class ReservationsController < ApplicationController
 
   def create_tickets
     params[:seats].each do |seat|
-      Ticket.create(reservation_id: @reservation.id, seat:)
+      @reservation.tickets.create(seat:)
     end
   end
 end
