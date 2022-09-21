@@ -7,10 +7,7 @@ class Screening < ApplicationRecord
   validates :end_time, comparison: { greater_than: :start_time }
 
   def available_seats
-    taken_seats = []
-    reservations.where.not(status: :cancelled).each do |reservation|
-      taken_seats << reservation.tickets.pluck(:seat)
-    end
+    taken_seats = reservations.joins(:tickets).where.not(status: :cancelled).pluck(:'tickets.seat')
     hall.seats - taken_seats.flatten
   end
 end
