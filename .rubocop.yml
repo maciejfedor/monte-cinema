@@ -3,6 +3,7 @@ AllCops:
     - 'db/**/*'
     - 'bin/**/*'
     - 'config/environments/*'
+    - 'config/initializers/*'
 Style/Documentation:
   Enabled: false
 Style/FrozenStringLiteralComment:
