@@ -5,8 +5,8 @@ class User < ApplicationRecord
 
   has_many :reservations
 
-  private
+  
          def validate_password_length
-            errors.add('Password is too long') if password.nil? || password.bytesize > 72
+            errors.add(:password, :too_long, message: 'Password is too long') if password.nil? || password.bytesize > 72
          end
     end
