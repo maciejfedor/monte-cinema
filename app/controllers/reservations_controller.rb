@@ -23,7 +23,7 @@ class ReservationsController < ApplicationController
   end
 
   def update
-    authorize Reservation
+    authorize @reservation
     @reservation.update(status: params[:status])
     redirect_to screening_reservation_path(params[:screening_id], @reservation)
   end
@@ -35,7 +35,7 @@ class ReservationsController < ApplicationController
   end
 
   def show
-    authorize Reservation
+    authorize @reservation
   end
 
   def index
@@ -50,7 +50,6 @@ class ReservationsController < ApplicationController
 
   def set_reservation
     @reservation = Reservation.find(params[:id])
-    authorize @reservation
   end
 
   def create_tickets
