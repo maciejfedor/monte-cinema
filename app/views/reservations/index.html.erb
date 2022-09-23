@@ -1,0 +1,11 @@
+<% @reservations.each do |reservation| %>
+  <div class="card">
+    <div class="card-header">
+      <h5 class="card-title"><%= "Reservation no. #{reservation.id}" %> <span class="badge bg-secondary"><%= "status: #{reservation.status}"%></span></h5>
+    </div>
+    <div class="card-body">
+      <h2><%= reservation.screening.movie.title %></h2>
+      <p class="card-text"> <%= "#{reservation.screening.start_time.strftime("%d/%m/%Y %H:%M")}" %></p>
+      <p class="card-text"><%= "Hall #{reservation.screening.hall.name}" %></p>
+      <%= button_to "Show reservation", screening_reservation_path(reservation.screening.id, reservation), method: :get%>
+    <%end%>

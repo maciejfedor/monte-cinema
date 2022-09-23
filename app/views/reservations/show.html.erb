@@ -11,11 +11,19 @@
       <p class="card-text"><%= "Seat #{t.seat}" %></p>
       <p class="card-text"><%= "Ticket id: #{t.id}" %></p>
     <%end%>
-    <%= form_with(url: screening_reservation_path, method: "put") do |f|%>
-      <%if @reservation.booked?%>
-        <%= f.button  "Accept", type: 'submit', name: 'status', value: "accepted", class: "btn btn-outline-success btn-lg" %>
-        <%= f.button  "Cancel", type: 'submit', name: 'status', value: "cancelled", class: "btn btn-outline-warning btn-lg"%>
+    <%if @reservation.booked?%>
+      <%if current_user.manager? || current_user.admin?%>
+        <%= form_with(url: screening_reservation_path, method: "put") do |f|%>
+          <%= f.button  "Accept", type: 'submit', name: 'status', value: "accepted", class: "btn btn-outline-success btn-lg" %>
+        <%end%>
+        <%= form_with(url: screening_reservation_path, method: "delete") do |f|%>
+          <%= f.button  "Cancel", type: 'submit', name: 'status', value: "cancelled", class: "btn btn-outline-warning btn-lg", method: :delete%>
+        <%end%>
+      <%else%>
+        <%= form_with(url: screening_reservation_path, method: "delete") do |f|%>
+          <%= f.button  "Cancel", type: 'submit', name: 'status', value: "cancelled", class: "btn btn-outline-warning btn-lg", method: :delete%>
+        <%end%>
       <%end%>
-    <% end %>
+    <%end%>
   </div>
 </div>

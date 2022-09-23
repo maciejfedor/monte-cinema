@@ -1,14 +1,16 @@
 class ReservationsController < ApplicationController
+  include Pundit::Authorization
   before_action :set_screening, only: %i[new create]
-  before_action :set_reservation, only: %i[show update]
-
+  before_action :set_reservation, only: %i[show update destroy]
+  before_action :authenticate_user!
   def new
+    authorize Reservation
     @reservation = Reservation.new
   end
 
   def create
-    @reservation = @screening.reservations.new(status: :booked)
-
+    @reservation = @screening.reservations.new(status: :booked, user_id: current_user.id)
+    authorize @reservation
     Reservation.transaction do
       @reservation.save!
       create_tickets
@@ -21,11 +23,24 @@ class ReservationsController < ApplicationController
   end
 
   def update
+    authorize @reservation
     @reservation.update(status: params[:status])
     redirect_to screening_reservation_path(params[:screening_id], @reservation)
   end
 
-  def show; end
+  def destroy
+    authorize @reservation
+    @reservation.update(status: :cancelled)
+    redirect_to screening_reservation_path(params[:screening_id], @reservation)
+  end
+
+  def show
+    authorize @reservation
+  end
+
+  def index
+    @reservations = current_user.reservations
+  end
 
   private
 

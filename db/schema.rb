@@ -31,9 +31,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_192536) do
   create_table "reservations", force: :cascade do |t|
     t.integer "status", null: false
     t.bigint "screening_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["screening_id"], name: "index_reservations_on_screening_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
   end
 
   create_table "screenings", force: :cascade do |t|
@@ -61,6 +63,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_192536) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "role", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
