@@ -7,7 +7,7 @@ class ReservationPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    owns_reservation?
   end
 
   def new?
@@ -15,7 +15,7 @@ class ReservationPolicy < ApplicationPolicy
   end
 
   def create?
-    manager_or_admin? || reservation.user_id == user.id
+    owns_reservation?
   end
 
   def update?
@@ -23,7 +23,7 @@ class ReservationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    manager_or_admin? || reservation.user_id == user.id
+    owns_reservation?
   end
 
   private
@@ -31,4 +31,12 @@ class ReservationPolicy < ApplicationPolicy
   def manager_or_admin?
     user.manager? || user.admin?
   end
+
+  def owns_reservation?
+
+   manager_or_admin? || reservation.user_id == user.id
+
+  end
+
+
 end
