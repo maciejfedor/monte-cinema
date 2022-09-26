@@ -6,8 +6,9 @@ Rails.application.routes.draw do
   end
 
   resources :screenings, only: [:show] do
-    resources :reservations, only: %i[new create show update destroy]
+    resources :reservations, only: %i[new create]
   end
+  resources :reservations, only: %i[index show update destroy]
 
-  resources :reservations, only: %i[index]
+  
 end
