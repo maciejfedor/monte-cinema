@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   resources :reservations, only: %i[index show update destroy]
 
   get '/user', to: 'users#show'
+
+  post 'screenings/:screening_id/reservations/offline', to: 'reservations#create_at_desk', as: 'offline_reservation'
 end
