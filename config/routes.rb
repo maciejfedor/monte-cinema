@@ -10,5 +10,5 @@ Rails.application.routes.draw do
   end
   resources :reservations, only: %i[index show update destroy]
 
-  
+  get '/user', to: 'users#show'
 end

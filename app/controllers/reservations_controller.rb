@@ -19,19 +19,19 @@ class ReservationsController < ApplicationController
       render :new, status: :unprocessable_entity and return
     end
 
-    redirect_to screening_reservation_path(@screening, @reservation)
+    redirect_to reservation_path(@reservation)
   end
 
   def update
     authorize @reservation
     @reservation.update(status: params[:status])
-    redirect_to screening_reservation_path(params[:screening_id], @reservation)
+    redirect_to reservation_path(@reservation)
   end
 
   def destroy
     authorize @reservation
     @reservation.update(status: :cancelled)
-    redirect_to screening_reservation_path(params[:screening_id], @reservation)
+    redirect_to reservation_path(@reservation)
   end
 
   def show
@@ -39,7 +39,8 @@ class ReservationsController < ApplicationController
   end
 
   def index
-    @reservations = current_user.reservations
+    @reservations = Reservation.includes(:tickets)
+    @pagy, @reservations = pagy(@reservations.order(created_at: :desc))
   end
 
   private
