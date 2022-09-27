@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'pages#home'
-  resources :movies, only: %i[show index] do
+  resources :movies, only: %i[show index new create] do
     resources :screenings, only: [:show]
   end
 

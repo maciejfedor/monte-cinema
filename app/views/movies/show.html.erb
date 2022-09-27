@@ -2,8 +2,10 @@
   <h2><%= @movie.title %></h2>
   <p><%= "#{@movie.length} min." %></p>
 </div>
-<div class="screenings">
-  <% @movie.screenings.each do |screening| %>
-    <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_path(), method: :get%>
+<%if @movie.screenings.any?%>
+  <div class="screenings">
+    <% @movie.screenings.each do |screening| %>
+      <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_path(), method: :get%>
+    <% end %>
   <% end %>
 </div>
