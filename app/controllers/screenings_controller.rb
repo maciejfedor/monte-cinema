@@ -1,23 +1,29 @@
 class ScreeningsController < ApplicationController
+  include Pundit::Authorization
+  before_action :authenticate_user!, except: [:show, :index]
   def show
     set_screening
+    authorize @screening
   end
 
   def index
+    authorize Screening
     render :index, locals: { movies: Movie.includes(:screenings) }
   end
 
   def new
+    authorize Screening
     @screening = Screening.new
   end
 
   def edit
     set_screening
+    authorize @screening
   end
 
   def create
     @screening = Screening.new(screening_params)
-
+    authorize @screening
     if @screening.save
       redirect_to screenings_path
     else
@@ -27,6 +33,7 @@ class ScreeningsController < ApplicationController
 
   def update
     set_screening
+    authorize @screening
     if @screening.update(screening_params)
       redirect_to screenings_path
     else
@@ -36,6 +43,7 @@ class ScreeningsController < ApplicationController
 
   def destroy
     set_screening
+    authorize @screening
     @screening.destroy
     redirect_to screenings_path
   end
