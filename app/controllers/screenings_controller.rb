@@ -24,6 +24,14 @@ class ScreeningsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+  def update
+    set_screening
+  if @screening.update(screening_params)
+    redirect_to screenings_path
+  else
+    render :edit, status: :unprocessable_entity
+  end
+end
 
   def screening_params
     params.require(:screening).permit(:hall_id, :movie_id, :start_time)
