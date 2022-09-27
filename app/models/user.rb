@@ -4,7 +4,7 @@ class User < ApplicationRecord
   validate :validate_password_length
 
   has_many :reservations
-  enum :role, %i[user manager admin]
+  enum :role, { user: 0, manager: 1, admin: 2 }
 
   def validate_password_length
     errors.add(:password, :too_long, message: 'Password is too long') if password.nil? || password.bytesize > 72
