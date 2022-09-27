@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>MonteCinema</title>
-    <link href='https://fonts.googleapis.com/css?family=Oxygen:300,400,700' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css2?family=Eczar:wght@500;600&family=Roboto+Mono:wght@200;300;400;500;600&family=Roboto:wght@300&display=swap" rel='stylesheet' type='text/css'>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -13,8 +13,9 @@
   </head>
   <body>
     <%= render 'layouts/navigation'%>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <%= render 'layouts/messages' %>
+    <div class="px-4 py-5 my-5  text-bg-secondary p-3">
+      <%= yield %>
+    </div>
   </body>
 </html>

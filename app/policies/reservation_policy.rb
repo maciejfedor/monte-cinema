@@ -10,12 +10,20 @@ class ReservationPolicy < ApplicationPolicy
     owns_reservation?
   end
 
+  def index
+    manager_or_admin?
+  end
+
   def new?
     true
   end
 
   def create?
     owns_reservation?
+  end
+
+  def create_at_desk?
+    manager_or_admin?
   end
 
   def update?
@@ -33,10 +41,6 @@ class ReservationPolicy < ApplicationPolicy
   end
 
   def owns_reservation?
-
-   manager_or_admin? || reservation.user_id == user.id
-
+    manager_or_admin? || reservation.user_id == user.id
   end
-
-
 end

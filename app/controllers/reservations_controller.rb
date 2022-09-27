@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   include Pundit::Authorization
-  before_action :set_screening, only: %i[new create]
+  before_action :set_screening, only: %i[new create create_at_desk]
   before_action :set_reservation, only: %i[show update destroy]
   before_action :authenticate_user!
   def new
@@ -19,19 +19,33 @@ class ReservationsController < ApplicationController
       render :new, status: :unprocessable_entity and return
     end
 
-    redirect_to screening_reservation_path(@screening, @reservation)
+    redirect_to reservation_path(@reservation)
+  end
+
+  def create_at_desk
+    @reservation = @screening.reservations.new(status: :accepted)
+    authorize @reservation
+    Reservation.transaction do
+      @reservation.save!
+      create_tickets
+
+    rescue StandardError
+      render :new, status: :unprocessable_entity and return
+    end
+
+    redirect_to reservation_path(@reservation)
   end
 
   def update
     authorize @reservation
     @reservation.update(status: params[:status])
-    redirect_to screening_reservation_path(params[:screening_id], @reservation)
+    redirect_to reservation_path(@reservation)
   end
 
   def destroy
     authorize @reservation
     @reservation.update(status: :cancelled)
-    redirect_to screening_reservation_path(params[:screening_id], @reservation)
+    redirect_to reservation_path(@reservation)
   end
 
   def show
@@ -39,7 +53,8 @@ class ReservationsController < ApplicationController
   end
 
   def index
-    @reservations = current_user.reservations
+    @reservations = Reservation.includes(:tickets)
+    @pagy, @reservations = pagy(@reservations.order(created_at: :desc))
   end
 
   private

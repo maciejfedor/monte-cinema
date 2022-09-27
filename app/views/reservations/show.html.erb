@@ -13,14 +13,14 @@
     <%end%>
     <%if @reservation.booked?%>
       <%if current_user.manager? || current_user.admin?%>
-        <%= form_with(url: screening_reservation_path, method: "put") do |f|%>
+        <%= form_with(url: reservation_path, method: "put") do |f|%>
           <%= f.button  "Accept", type: 'submit', name: 'status', value: "accepted", class: "btn btn-outline-success btn-lg" %>
         <%end%>
-        <%= form_with(url: screening_reservation_path, method: "delete") do |f|%>
+        <%= form_with(url: reservation_path, method: "delete") do |f|%>
           <%= f.button  "Cancel", type: 'submit', name: 'status', value: "cancelled", class: "btn btn-outline-warning btn-lg", method: :delete%>
         <%end%>
       <%else%>
-        <%= form_with(url: screening_reservation_path, method: "delete") do |f|%>
+        <%= form_with(url: reservation_path, method: "delete") do |f|%>
           <%= f.button  "Cancel", type: 'submit', name: 'status', value: "cancelled", class: "btn btn-outline-warning btn-lg", method: :delete%>
         <%end%>
       <%end%>

@@ -1,11 +1,9 @@
+<h1 class = "text-center p-3">Your reservations</h1>
 <%== pagy_bootstrap_nav(@pagy) %>
 <% @reservations.each do |reservation| %>
   <div class="card">
     <div class="card-header">
       <h5 class="card-title"><%= "Reservation no. #{reservation.id}" %> <span class="badge bg-secondary"><%= "status: #{reservation.status}"%></span></h5>
-      <% if reservation.user_id.present?%>
-        <p class="card-text"><%= "User: #{reservation.user_id}"%></p>
-      <% end %>
     </div>
     <div class="card-body">
       <h2><%= reservation.screening.movie.title %></h2>
@@ -14,3 +12,4 @@
     </div>
     <%= button_to "Show reservation", reservation_path(reservation), method: :get%>
   <%end%>
+</div>
