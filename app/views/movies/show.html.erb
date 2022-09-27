@@ -9,11 +9,11 @@
     <% end %>
   <% end %>
   <div class="btn btn-secondary mb-3">
-    <%= link_to 'Edit Movie',  method: :get%>
+    <%= link_to 'Edit Movie', edit_movie_path(@movie)%>
   </div>
   <% if current_user.manager? %>
     <div class="btn btn-danger mb-3">
-      <%= link_to 'Delete Movie',  method: :get%>
+      <%= link_to 'Delete Movie', movie_path(@movie),  method: :delete%>
     </div>
   <% end %>
 </div>
