@@ -12,18 +12,12 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = Movie.new(movie_params)
+    @movie = Movie.new(title: params[:title], duration: params[:duration])
 
     if @movie.save
       redirect_to movie_path(@movie)
     else
       render :new, status: :unprocessable_entity
     end
-  end
-
-  private
-
-  def movie_params
-    params.require(:movie).permit(:title, :length)
   end
 end

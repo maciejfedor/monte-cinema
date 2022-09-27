@@ -11,16 +11,16 @@ h10 = Hall.create(name: '10', capacity: 20)
 
 
 
-m1 = Movie.create(title: 'Lawrence of Arabia', length: 222 )
-m2 = Movie.create(title: 'What We do in the Shadows', length: 86)
-m3 = Movie.create(title: '12 Angry Men', length: 96)
-m4 = Movie.create(title: 'Blade Runner', length: 120)
-m5 = Movie.create(title: 'La La Land', length: 128)
-m6 = Movie.create(title: 'The Room', length: 91)
-m7 = Movie.create(title: 'Trainspotting', length: 100 )
-m8 = Movie.create(title: 'Mother', length: 130)
-m9 = Movie.create(title: 'Gran Torino', length: 150)
-m10 = Movie.create(title: 'Wild Strawberries', length: 90)
+m1 = Movie.create(title: 'Lawrence of Arabia', duration: 222 )
+m2 = Movie.create(title: 'What We do in the Shadows', duration: 86)
+m3 = Movie.create(title: '12 Angry Men', duration: 96)
+m4 = Movie.create(title: 'Blade Runner', duration: 120)
+m5 = Movie.create(title: 'La La Land', duration: 128)
+m6 = Movie.create(title: 'The Room', duration: 91)
+m7 = Movie.create(title: 'Trainspotting', duration: 100 )
+m8 = Movie.create(title: 'Mother', duration: 130)
+m9 = Movie.create(title: 'Gran Torino', duration: 150)
+m10 = Movie.create(title: 'Wild Strawberries', duration: 90)
 
 
 
