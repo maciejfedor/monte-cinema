@@ -5,7 +5,7 @@
 <%if @movie.screenings.any?%>
   <div class="screenings">
     <% @movie.screenings.each do |screening| %>
-      <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_path(), method: :get%>
+      <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_screening_path(@movie.id), method: :get%>
     <% end %>
   <% end %>
   <%= button_to 'Edit Movie', edit_movie_path(@movie), class: "btn btn-secondary mb-3", method: :get%>

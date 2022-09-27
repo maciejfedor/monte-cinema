@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     resources :screenings, only: [:show]
   end
 
-  resources :screenings, only: %i[show index] do
+  resources :screenings, only: %i[index] do
     resources :reservations, only: %i[new create]
   end
   resources :reservations, only: %i[index show update destroy]
