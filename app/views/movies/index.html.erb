@@ -1,6 +1,9 @@
  <% @movies.each do |movie| %>
   <div class="movie">
     <h2><%= link_to movie.title, movie_path(movie)%></h2>
-    <p><%= "#{movie.length} min." %></p>
+    <p><%= "#{movie.duration} min." %></p>
   </div>
 <% end %>
+<div class="col-auto btn btn-outline-light btn-lg">
+  <%= link_to 'Add Movie', new_movie_path,  method: :get%>
+</div>

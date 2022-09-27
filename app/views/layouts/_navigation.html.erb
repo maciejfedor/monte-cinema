@@ -23,6 +23,11 @@
               <%end %>
             </ul>
           </li>
+          <% if !current_user.user?%>
+            <li class="nav-item">
+              <%= link_to 'Movies',  movies_path, class: "nav-link fw-bold text-success " %>
+            </li>
+          <% end %>
           <li class="nav-item">
             <%= link_to 'Logout', destroy_user_session_path, class: "nav-link fw-bold text-body ",  data: { "turbo-method": :delete} %>
           </li>
