@@ -6,4 +6,8 @@ class ScreeningsController < ApplicationController
   def index
     render :index, locals: { movies: Movie.includes(:screenings) }
   end
+
+  def new
+    render :new, locals: { screening: Screening.new }
+  end
 end
