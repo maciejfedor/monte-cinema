@@ -3,7 +3,7 @@ class Screening < ApplicationRecord
   belongs_to :hall
   has_many :reservations
   validates :start_time, :end_time, presence: true
-  validates :end_time, comparison: { greater_than: :start_time }
+  validates_comparison_of :end_time, greater_than: :start_time, greater_than: Time.now
   before_validation :calculate_end_time
 
   def available_seats

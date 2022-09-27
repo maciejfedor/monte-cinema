@@ -34,6 +34,12 @@ class ScreeningsController < ApplicationController
     end
   end
 
+  def destroy
+    set_screening
+    @screening.destroy
+    redirect_to screenings_path
+  end
+
   def screening_params
     params.require(:screening).permit(:hall_id, :movie_id, :start_time)
   end
