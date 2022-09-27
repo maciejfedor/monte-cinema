@@ -8,7 +8,7 @@ class MoviesController < ApplicationController
   end
 
   def new
-    render :new, locals: { movie: Movie.new }
+    @movie = Movie.new
   end
 
   def create
@@ -32,6 +32,12 @@ class MoviesController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    set_movie
+    @movie.destroy
+    redirect_to movies_path
   end
 
   private

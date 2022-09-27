@@ -8,12 +8,8 @@
       <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_path(), method: :get%>
     <% end %>
   <% end %>
-  <div class="btn btn-secondary mb-3">
-    <%= link_to 'Edit Movie', edit_movie_path(@movie)%>
-  </div>
+  <%= button_to 'Edit Movie', edit_movie_path(@movie), class: "btn btn-secondary mb-3", method: :get%>
   <% if current_user.manager? %>
-    <div class="btn btn-danger mb-3">
-      <%= link_to 'Delete Movie', movie_path(@movie),  method: :delete%>
-    </div>
+    <%= button_to 'Delete Movie', @movie,  method: :delete, class: "btn btn-danger mb-3"%>
   <% end %>
 </div>
