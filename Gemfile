@@ -45,10 +45,10 @@ gem 'redis', '~> 4.0'
 # gem "bcrypt", "~> 3.1.7"
 
 # Use devise for authentication
-gem 'devise'
+gem 'devise', '~> 4.8', '>= 4.8.1'
 
 # use pundit for authorization
-gem 'pundit'
+gem 'pundit', '~> 1.1'
 
 # use pagy for pagination
 gem 'pagy', '~> 5.10'
