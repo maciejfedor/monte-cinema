@@ -23,8 +23,9 @@ gem 'tzinfo-data', '~> 1.2022', '>= 1.2022.4', platforms: %i[mingw mswin x64_min
 
 group :development, :test do
   gem 'debug', '~> 1.6', '>= 1.6.2', platforms: %i[mri mingw x64_mingw]
-  gem 'rubocop', '~> 1.36', require: false
   gem 'faker', '~> 2.23'
+  gem 'rspec-rails', '~> 5.1.2'
+  gem 'rubocop', '~> 1.36', require: false
 end
 
 group :development do
