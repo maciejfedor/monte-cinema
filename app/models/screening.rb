@@ -2,9 +2,8 @@ class Screening < ApplicationRecord
   belongs_to :movie
   belongs_to :hall
   has_many :reservations
-  validates :start_time, :end_time, presence: true
-  validates_comparison_of :end_time, greater_than: :start_time
-  validates :start_time, comparison: {greater_than: Time.now.in_time_zone('Poland')}
+  validates :end_time, comparison: { greater_than: :start_time }, presence: true
+  validates :start_time, comparison: { greater_than: Time.now }, presence: true
   before_validation :calculate_end_time
 
   def available_seats
