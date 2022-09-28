@@ -57,9 +57,11 @@
         <li class="nav-item">
           <%= link_to 'Logout', destroy_user_session_path, class: "nav-link fw-bold text-body ",  data: { "turbo-method": :delete} %>
         </li>
-        <li class="nav-item">
-          <%= link_to 'Screenings',  screenings_path, class: "nav-link fw-bold text-body" %>
-        </li>
+        <% if !user_signed_in? || current_user.user?%>
+          <li class="nav-item">
+            <%= link_to 'Screenings',  screenings_path, class: "nav-link fw-bold text-body" %>
+          </li>
+        <%end%>
       <% else %>
         <li class="nav-item">
           <%= link_to 'Log in',  new_user_session_path, class: "nav-link fw-bold text-success" %>
