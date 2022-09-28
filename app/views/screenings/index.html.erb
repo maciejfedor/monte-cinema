@@ -1,0 +1,11 @@
+ <% movies.each do |movie| %>
+  <%if movie.screenings.any?%>
+    <div class="movie">
+      <h2><%= link_to movie.title, movie_path(movie)%></h2>
+      <p><%= "#{movie.duration} min." %></p>
+      <%movie.screenings.each do |screening|%>
+        <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_screening_path(movie.id, screening), method: :get%>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

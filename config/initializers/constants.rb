@@ -1,0 +1,1 @@
+ADS_DURATION = 30.minutes
