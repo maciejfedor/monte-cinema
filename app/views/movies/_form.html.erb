@@ -1,3 +1,4 @@
+ <%= render 'shared/errors', obj: @movie %>
 <%= form_with(model: @movie, data: { turbo: false }, local: true) do |f|%>
   <div class="row mb-3">
     <%= f.label :title, "Title:", class: "col-sm-2 col-form-label" %>
