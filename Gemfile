@@ -37,5 +37,6 @@ end
 group :test do
   gem 'capybara', '~> 3.37', '>= 3.37.1'
   gem 'selenium-webdriver', '~> 4.4'
+  gem 'simplecov', '~> 0.21.2', require: false
   gem 'webdrivers', '~> 5.1'
 end
