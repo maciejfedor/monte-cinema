@@ -24,7 +24,7 @@ class ReservationsController < ApplicationController
 
   def update
     authorize @reservation
-    @reservation.update(status: params[:status])
+    @reservation = Reservations::UseCases::Update.new(id: params[:id], status: params[:status]).call
     redirect_to reservation_path(@reservation)
   end
 

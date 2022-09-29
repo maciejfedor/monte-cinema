@@ -17,5 +17,9 @@ module Reservations
     def create_reservation(params)
       adapter.create!(params)
     end
+
+    def update_reservation(id, params)
+      adapter.update!(id, params)
+    end
   end
 end
