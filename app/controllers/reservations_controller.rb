@@ -9,31 +9,17 @@ class ReservationsController < ApplicationController
   end
 
   def create
-    @reservation = @screening.reservations.new(status: :booked, user_id: current_user.id)
-    authorize @reservation
-    Reservation.transaction do
-      @reservation.save!
-      create_tickets
-
-    rescue StandardError
-      render :new, status: :unprocessable_entity and return
-    end
-
-    redirect_to reservation_path(@reservation)
+    authorize Reservation
+    @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
+                                                      seats: params[:seats], status: :booked).call
+    reservation_redirect
   end
 
   def create_at_desk
-    @reservation = @screening.reservations.new(status: :accepted)
-    authorize @reservation
-    Reservation.transaction do
-      @reservation.save!
-      create_tickets
-
-    rescue StandardError
-      render :new, status: :unprocessable_entity and return
-    end
-
-    redirect_to reservation_path(@reservation)
+    authorize Reservation
+    @reservation = Reservations::UseCases::CreateAtDesk.new(screening_id: params[:screening_id],
+                                                            seats: params[:seats], status: :accepted).call
+    reservation_redirect
   end
 
   def update
@@ -71,6 +57,14 @@ class ReservationsController < ApplicationController
   def create_tickets
     params[:seats].each do |seat|
       @reservation.tickets.create(seat:)
+    end
+  end
+
+  def reservation_redirect
+    if @reservation.nil?
+      render :new, status: :unprocessable_entity
+    else
+      redirect_to reservation_path(@reservation)
     end
   end
 end
