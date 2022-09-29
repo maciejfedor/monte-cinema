@@ -1,6 +1,6 @@
 class ScreeningsController < ApplicationController
   include Pundit::Authorization
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: %i[show index]
   def show
     set_screening
     authorize @screening
