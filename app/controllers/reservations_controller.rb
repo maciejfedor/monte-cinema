@@ -1,7 +1,7 @@
 class ReservationsController < ApplicationController
   include Pundit::Authorization
-  before_action :set_screening, only: %i[new create create_at_desk]
-  before_action :set_reservation, only: %i[update destroy]
+  before_action :set_screening, only: %i[new]
+  before_action :set_reservation, only: %i[destroy]
   before_action :authenticate_user!
   def new
     authorize Reservation
@@ -23,6 +23,7 @@ class ReservationsController < ApplicationController
   end
 
   def update
+    @reservation = Reservations::UseCases::Find.new(id: params[:id]).call
     authorize @reservation
     @reservation = Reservations::UseCases::Update.new(id: params[:id], status: params[:status]).call
     redirect_to reservation_path(@reservation)
