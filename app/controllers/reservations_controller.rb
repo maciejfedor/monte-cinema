@@ -54,7 +54,7 @@ class ReservationsController < ApplicationController
   end
 
   def index
-    @reservations = Reservation.includes(:tickets)
+    @reservations = Reservations::UseCases::FindAll.new.call
     @pagy, @reservations = pagy(@reservations.order(created_at: :desc))
   end
 
