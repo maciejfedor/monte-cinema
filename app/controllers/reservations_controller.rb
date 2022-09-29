@@ -30,8 +30,9 @@ class ReservationsController < ApplicationController
   end
 
   def destroy
+    @reservation = Reservations::UseCases::Find.new(id: params[:id]).call
     authorize @reservation
-    @reservation.update(status: :cancelled)
+    @reservation = Reservations::UseCases::Cancel.new(id: params[:id]).call
     redirect_to reservation_path(@reservation)
   end
 
