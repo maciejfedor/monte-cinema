@@ -1,4 +1,4 @@
-class ReservationPolicy < ApplicationPolicy
+class ReservationPolicy
   attr_reader :user, :reservation
 
   def initialize(user, reservation)
@@ -19,7 +19,7 @@ class ReservationPolicy < ApplicationPolicy
   end
 
   def create?
-    owns_reservation?
+    true
   end
 
   def create_at_desk?
