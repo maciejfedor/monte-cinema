@@ -11,6 +11,8 @@ module Reservations
       end
 
       def call
+        return if seats.blank?
+
         ActiveRecord::Base.transaction do
           reservation
           create_tickets(reservation)
