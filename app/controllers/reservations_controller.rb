@@ -1,7 +1,6 @@
 class ReservationsController < ApplicationController
   include Pundit::Authorization
-  before_action :set_screening, only: %i[new]
-  before_action :set_reservation, only: %i[destroy]
+  before_action :set_screening, only: %i[new create]
   before_action :authenticate_user!
   def new
     authorize Reservation
@@ -10,16 +9,24 @@ class ReservationsController < ApplicationController
 
   def create
     authorize Reservation
-    @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
-                                                      seats: params[:seats], status: :booked).call
-    reservation_redirect
+    if validate_seats
+      @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
+                                                        seats: params[:seats], status: :booked).call
+      redirect_to reservation_path(@reservation)
+    else
+      render_new
+    end
   end
 
   def create_at_desk
     authorize Reservation
-    @reservation = Reservations::UseCases::CreateAtDesk.new(screening_id: params[:screening_id],
-                                                            seats: params[:seats], status: :accepted).call
-    reservation_redirect
+    if validate_seats
+      @reservation = Reservations::UseCases::CreateAtDesk.new(screening_id: params[:screening_id],
+                                                              seats: params[:seats], status: :accepted).call
+      redirect_to reservation_path(@reservation)
+    else
+      render_new
+    end
   end
 
   def update
@@ -52,21 +59,13 @@ class ReservationsController < ApplicationController
     @screening = Screening.find(params[:screening_id])
   end
 
-  def set_reservation
-    @reservation = Reservation.find(params[:id])
+  def validate_seats
+    SeatsValidator.validate!(screening: @screening, seats: params[:seats])
   end
 
-  def create_tickets
-    params[:seats].each do |seat|
-      @reservation.tickets.create(seat:)
-    end
-  end
-
-  def reservation_redirect
-    if @reservation.nil?
-      render :new, status: :unprocessable_entity
-    else
-      redirect_to reservation_path(@reservation)
-    end
+  def render_new
+    flash[:alert] = 'Choose at least one seat!'
+    render :new,
+           status: :unprocessable_entity
   end
 end
