@@ -1,6 +1,6 @@
 class ReservationsController < ApplicationController
   include Pundit::Authorization
-  before_action :set_screening, only: %i[new create]
+  before_action :set_screening, only: %i[new create create_at_desk]
   before_action :authenticate_user!
   def new
     authorize Reservation

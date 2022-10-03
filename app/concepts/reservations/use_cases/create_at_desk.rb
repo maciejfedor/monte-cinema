@@ -25,8 +25,8 @@ module Reservations
       end
 
       def reservation
-        @reservation ||= repository.create_reservation(screening_id:, user_id:,
-                                                       status:)
+        @reservation ||= repository.create_reservation!(screening_id:,
+                                                        status:)
       end
     end
   end
