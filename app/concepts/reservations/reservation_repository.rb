@@ -14,11 +14,11 @@ module Reservations
       adapter.includes(:tickets)
     end
 
-    def create_reservation(params)
+    def create_reservation!(params)
       adapter.create!(params)
     end
 
-    def update_reservation(id, params)
+    def update_reservation!(id, params)
       adapter.update!(id, params)
     end
   end

@@ -9,7 +9,7 @@ module Reservations
       end
 
       def call
-        repository.update_reservation(id, status: :cancelled)
+        repository.update_reservation!(id, status: :cancelled)
       end
     end
   end

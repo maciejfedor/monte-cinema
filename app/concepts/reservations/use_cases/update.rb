@@ -10,7 +10,7 @@ module Reservations
       end
 
       def call
-        repository.update_reservation(id, status:)
+        repository.update_reservation!(id, status:)
       end
     end
   end
