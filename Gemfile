@@ -16,12 +16,12 @@ gem 'pundit', '~> 2.2'
 gem 'rails', '7.0.3'
 gem 'redis', '~> 4.0'
 gem 'sassc-rails', '2.1.2'
+gem 'sidekiq', '~> 6.5', '>= 6.5.7'
+gem 'sidekiq-cron', '~> 1.7'
 gem 'sprockets-rails'
 gem 'stimulus-rails', '~> 1.1'
 gem 'turbo-rails', '~> 1.3'
 gem 'tzinfo-data', '~> 1.2022', '>= 1.2022.4', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'sidekiq', '~> 6.5', '>= 6.5.7'
-gem 'sidekiq-cron', '~> 1.7'
 
 group :development, :test do
   gem 'debug', '~> 1.6', '>= 1.6.2', platforms: %i[mri mingw x64_mingw]
