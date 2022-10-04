@@ -1,0 +1,4 @@
+cancel_pending_reservations:
+  cron: "* * * * *"
+  class: "CancelPendingReservationsJob"
+  queue: default
