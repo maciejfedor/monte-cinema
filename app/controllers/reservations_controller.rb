@@ -21,12 +21,12 @@ class ReservationsController < ApplicationController
 
   def create_at_desk
     authorize Reservation
-    if validate_seats
-      @reservation = Reservations::UseCases::CreateAtDesk.new(screening_id: params[:screening_id],
-                                                              seats: params[:seats], status: :accepted).call
-      redirect_to reservation_path(@reservation)
-    else
+    @use_case = Reservations::UseCases::CreateAtDesk.new(screening_id: params[:screening_id],
+                                                         seats: params[:seats], status: :accepted).call
+    if @use_case.errors.any?
       render :new, status: :unprocessable_entity
+    else
+      redirect_to reservation_path(@use_case.data)
     end
   end
 
@@ -58,9 +58,5 @@ class ReservationsController < ApplicationController
 
   def set_screening
     @screening = Screening.find(params[:screening_id])
-  end
-
-  def validate_seats
-    SeatsValidator.validate!(screening: @screening, seats: params[:seats])
   end
 end
