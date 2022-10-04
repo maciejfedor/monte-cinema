@@ -9,12 +9,13 @@ class ReservationsController < ApplicationController
 
   def create
     authorize Reservation
-    if validate_seats
-      @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
-                                                        seats: params[:seats], status: :booked).call
-      redirect_to reservation_path(@reservation)
+
+    @use_case = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
+                                                   seats: params[:seats], status: :booked).call
+    if @use_case.errors.any?
+      render :new, status: :unprocessable_entity
     else
-      render_new
+      redirect_to reservation_path(@use_case.data)
     end
   end
 
@@ -25,7 +26,7 @@ class ReservationsController < ApplicationController
                                                               seats: params[:seats], status: :accepted).call
       redirect_to reservation_path(@reservation)
     else
-      render_new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -61,11 +62,5 @@ class ReservationsController < ApplicationController
 
   def validate_seats
     SeatsValidator.validate!(screening: @screening, seats: params[:seats])
-  end
-
-  def render_new
-    flash[:alert] = 'Choose at least one seat!'
-    render :new,
-           status: :unprocessable_entity
   end
 end
