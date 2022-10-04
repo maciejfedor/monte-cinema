@@ -1,7 +1,7 @@
 module Reservations
   module UseCases
     class Create
-      attr_reader :screening_id, :user_id, :seats, :status, :repository
+      attr_reader :screening_id, :user_id, :seats, :status, :errors, :repository
 
       def initialize(screening_id:, user_id:, seats:, status:, repository: ReservationRepository.new)
         @screening_id = screening_id
@@ -9,15 +9,16 @@ module Reservations
         @repository = repository
         @seats = seats
         @status = status
+        @errors = []
       end
 
       def call
-        return if seats.blank?
+        validate_seats
+        create_reservation unless @errors.any?
+        self
+      end
 
-        ActiveRecord::Base.transaction do
-          reservation
-          create_tickets(reservation)
-        end
+      def data
         reservation
       end
 
@@ -30,6 +31,20 @@ module Reservations
       def reservation
         @reservation ||= repository.create_reservation!(screening_id:, user_id:,
                                                         status:)
+      end
+
+      def validate_seats
+        SeatsValidator.validate!(screening:, seats:, errors:)
+      end
+
+      def screening
+        Screening.find(screening_id)
+      end
+
+      def create_reservation
+        ActiveRecord::Base.transaction do
+          create_tickets(reservation)
+        end
       end
     end
   end
