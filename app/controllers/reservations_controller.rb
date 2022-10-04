@@ -9,7 +9,6 @@ class ReservationsController < ApplicationController
 
   def create
     authorize Reservation
-
     @use_case = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
                                                    seats: params[:seats], status: :booked).call
     if @use_case.errors.any?
