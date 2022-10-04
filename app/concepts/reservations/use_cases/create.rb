@@ -14,13 +14,15 @@ module Reservations
 
       def call
         validate_seats
-        create_reservation unless @errors.any?
+        reservation_transaction unless @errors.any?
         self
       end
 
       def data
-        reservation
+        @reservation
       end
+
+      private
 
       def create_tickets(reservation)
         seats.each do |seat|
@@ -41,9 +43,10 @@ module Reservations
         Screening.find(screening_id)
       end
 
-      def create_reservation
+      def reservation_transaction
         ActiveRecord::Base.transaction do
-          create_tickets(reservation)
+          @reservation = reservation
+          create_tickets(@reservation)
         end
       end
     end
