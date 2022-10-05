@@ -42,4 +42,5 @@ group :test do
   gem 'selenium-webdriver', '~> 4.4'
   gem 'simplecov', '~> 0.21.2', require: false
   gem 'webdrivers', '~> 5.1'
+  gem 'rspec-sidekiq', '~> 3.1'
 end
