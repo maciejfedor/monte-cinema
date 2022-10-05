@@ -9,7 +9,7 @@ RSpec.describe Reservations::UseCases::CreateAtDesk do
   let(:params) do
     {
       screening_id: screening.id,
-      seats: seats,
+      seats:,
       status: :booked
     }
   end
@@ -18,15 +18,15 @@ RSpec.describe Reservations::UseCases::CreateAtDesk do
 
   describe '.call' do
     it 'creates reservation' do
-      expect{ instance }.to change(Reservation, :count).by(1)
+      expect { instance }.to change(Reservation, :count).by(1)
     end
 
     it 'creates tickets' do
-      expect{ instance }.to change(Ticket, :count).by(4)
+      expect { instance }.to change(Ticket, :count).by(4)
     end
 
     it 'returns reservation with proper attributes' do
-      expect(instance.data).to have_attributes(screening_id: screening.id, status: 'accepted')
+      expect(instance).to have_attributes(screening_id: screening.id, status: 'accepted')
     end
 
     it 'returns reservation without errors' do

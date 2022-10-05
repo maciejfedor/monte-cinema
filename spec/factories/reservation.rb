@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :reservation do
     screening
-    status {'booked'}
+    status { 'booked' }
   end
 end
