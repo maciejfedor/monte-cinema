@@ -1,13 +1,4 @@
-<% if !@use_case.nil? && @use_case.errors.any? %>
-  <div class="alert alert-danger alert-dismissible fade show"  role="alert">
-    <ul>
-      <% @use_case.errors.each do |msg| %>
-        <li> <%= msg %> </li>
-      <% end %>
-    </ul>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-<% end %>
+ <%= render 'shared/errors', obj: @reservation %>
 <h2><%= @screening.movie.title %></h2>
 <%= "#{@screening.start_time.strftime("%d/%m/%Y %H:%M")}" %>
 <p><%= "Hall #{@screening.hall.name}" %></p>

@@ -13,13 +13,11 @@ module Reservations
       end
 
       def call
-        validate_seats
-        reservation_transaction unless @errors.any?
-        self
-      end
-
-      def data
-        @reservation
+        screening
+        reservation = Reservation.new(screening:, user_id:, status: :booked)
+        seats.each { |seat| reservation.tickets.new(seat:) } if seats.present?
+        reservation.save
+        reservation
       end
 
       private
@@ -28,15 +26,6 @@ module Reservations
         seats.each do |seat|
           Ticket.create!(seat:, reservation_id: reservation.id)
         end
-      end
-
-      def reservation
-        @reservation ||= repository.create_reservation!(screening_id:, user_id:,
-                                                        status:)
-      end
-
-      def validate_seats
-        SeatsValidator.validate!(screening:, seats:, errors:)
       end
 
       def screening

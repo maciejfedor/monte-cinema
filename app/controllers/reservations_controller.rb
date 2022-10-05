@@ -9,23 +9,23 @@ class ReservationsController < ApplicationController
 
   def create
     authorize Reservation
-    @use_case = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
-                                                   seats: params[:seats], status: :booked).call
-    if @use_case.errors.any?
+    @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
+                                                      seats: params[:seats], status: :booked).call
+    if @reservation.errors.any?
       render :new, status: :unprocessable_entity
     else
-      redirect_to reservation_path(@use_case.data)
+      redirect_to reservation_path(@reservation)
     end
   end
 
   def create_at_desk
     authorize Reservation
-    @use_case = Reservations::UseCases::CreateAtDesk.new(screening_id: params[:screening_id],
-                                                         seats: params[:seats], status: :accepted).call
-    if @use_case.errors.any?
+    @reservation = Reservations::UseCases::CreateAtDesk.new(screening_id: params[:screening_id],
+                                                            seats: params[:seats], status: :accepted).call
+    if @reservation.errors.any?
       render :new, status: :unprocessable_entity
     else
-      redirect_to reservation_path(@use_case.data)
+      redirect_to reservation_path(@reservation)
     end
   end
 
