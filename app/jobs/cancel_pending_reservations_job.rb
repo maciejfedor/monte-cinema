@@ -1,10 +1,11 @@
 class CancelPendingReservationsJob < ApplicationJob
   queue_as :default
 
-  def perform(*_args)
+  def perform
+    return if reservations.empty?
+
     reservations.each do |reservation|
-      @reservation = reservation
-      cancel_reservation if after_deadline?
+      cancel_reservation(reservation) if after_deadline?(reservation)
     end
   end
 
@@ -16,15 +17,11 @@ class CancelPendingReservationsJob < ApplicationJob
     Reservation.where(status: :booked)
   end
 
-  def deadline
-    @reservation.screening.start_time - 30.minutes
+  def after_deadline?(reservation)
+    Time.current.after?(reservation.screening.start_time - 30.minutes)
   end
 
-  def after_deadline?
-    Time.current.after?(deadline)
-  end
-
-  def cancel_reservation
-    Reservations::UseCases::Cancel.new(id: @reservation.id).call
+  def cancel_reservation(reservation)
+    Reservations::UseCases::Cancel.new(id: reservation.id).call
   end
 end
