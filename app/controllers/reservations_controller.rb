@@ -50,6 +50,7 @@ class ReservationsController < ApplicationController
 
   def index
     @reservations = Reservations::UseCases::FindAll.new.call
+    authorize @reservations
     @pagy, @reservations = pagy(@reservations.order(created_at: :desc))
   end
 

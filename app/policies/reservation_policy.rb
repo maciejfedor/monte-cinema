@@ -10,7 +10,7 @@ class ReservationPolicy
     owns_reservation?
   end
 
-  def index
+  def index?
     manager_or_admin?
   end
 
