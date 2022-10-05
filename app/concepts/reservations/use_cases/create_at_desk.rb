@@ -1,11 +1,10 @@
 module Reservations
   module UseCases
     class CreateAtDesk
-      attr_reader :screening_id, :seats, :status, :repository
+      attr_reader :screening_id, :seats, :status
 
-      def initialize(screening_id:, seats:, status:, repository: ReservationRepository.new)
+      def initialize(screening_id:, seats:, status:)
         @screening_id = screening_id
-        @repository = repository
         @seats = seats
         @status = status
       end
