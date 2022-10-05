@@ -2,6 +2,6 @@ FactoryBot.define do
   factory :screening do
     movie
     hall
-    start_time { Date.today + 3.days }
+    start_time { Time.current + 30.minutes }
   end
 end
