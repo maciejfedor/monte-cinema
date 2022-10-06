@@ -1,20 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Reservations::UseCases::CreateAtDesk do
+  subject(:instance) { described_class.new(screening_id: screening.id, seats:, status: :booked ).call }
   let(:seats) { [*'10'..'13'] }
   let(:user) { create(:user) }
   let(:movie) { create(:movie) }
   let(:hall) { create(:hall) }
   let(:screening) { create(:screening, hall:, movie:, start_time: Date.current + 2.days) }
-  let(:params) do
-    {
-      screening_id: screening.id,
-      seats:,
-      status: :booked
-    }
-  end
-
-  subject(:instance) { described_class.new(**params).call }
 
   describe '.call' do
     it 'creates reservation' do
@@ -35,7 +27,7 @@ RSpec.describe Reservations::UseCases::CreateAtDesk do
 
     context 'when seats invalid' do
       let(:seats) { [] }
-      subject(:instance) { described_class.new(**params).call }
+      subject(:instance) { described_class.new(screening_id: screening.id, seats:, status: :booked).call }
       it 'does not create reservation' do
         expect { instance }.not_to change(Reservation, :count)
       end
