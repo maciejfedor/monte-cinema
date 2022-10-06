@@ -15,7 +15,7 @@ RSpec.describe Reservations::UseCases::Create do
     }
   end
 
-  let(:instance) { described_class.new(**params).call }
+  subject(:instance) { described_class.new(**params).call }
 
   describe '.call' do
     it 'creates reservation' do
@@ -36,7 +36,7 @@ RSpec.describe Reservations::UseCases::Create do
 
     context 'when seats invalid' do
       let(:seats) { [] }
-      let(:instance) { described_class.new(**params).call }
+      subject(:instance) { described_class.new(**params).call }
       it 'does not create reservation' do
         expect { instance }.not_to change(Reservation, :count)
       end
