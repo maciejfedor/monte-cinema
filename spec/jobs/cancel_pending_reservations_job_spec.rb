@@ -17,7 +17,8 @@ RSpec.describe CancelPendingReservationsJob, type: :job do
 end
 
 describe 'perform' do
-  let(:reservation) { create(:reservation, :skip_validate) }
+  let(:ticket) { build(:ticket, seat: '1') }
+  let(:reservation) { create(:reservation, tickets: [ticket]) }
   before { reservation }
 
   it 'changes status of reservation to cancelled' do
