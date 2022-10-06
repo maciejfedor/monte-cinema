@@ -16,6 +16,8 @@ gem 'pundit', '~> 2.2'
 gem 'rails', '7.0.3'
 gem 'redis', '~> 4.0'
 gem 'sassc-rails', '2.1.2'
+gem 'sidekiq', '~> 6.5', '>= 6.5.7'
+gem 'sidekiq-cron', '~> 1.7'
 gem 'sprockets-rails'
 gem 'stimulus-rails', '~> 1.1'
 gem 'turbo-rails', '~> 1.3'
@@ -40,4 +42,5 @@ group :test do
   gem 'selenium-webdriver', '~> 4.4'
   gem 'simplecov', '~> 0.21.2', require: false
   gem 'webdrivers', '~> 5.1'
+  gem 'rspec-sidekiq', '~> 3.1'
 end

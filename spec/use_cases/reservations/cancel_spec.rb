@@ -2,25 +2,13 @@ require 'rails_helper'
 
 RSpec.describe Reservations::UseCases::Cancel do
   describe '.call' do
-    let(:seats) { [*'10'..'13'] }
+    subject(:cancel_reservation) { described_class.new(id: id).call }
     let(:movie) { create(:movie) }
     let(:hall) { create(:hall) }
-    let(:user) { create(:user) }
     let(:screening) { create(:screening, hall:, movie:, start_time: Date.current + 2.days) }
-    let(:reservation) do
-      Reservations::UseCases::Create.new(screening_id: screening.id,
-                                         seats:,
-                                         user_id: user.id,
-                                         status: :booked).call
-    end
-
-    let(:params) do
-      {
-        id: reservation.id
-      }
-    end
-
-    let(:cancel_reservation) { described_class.new(**params).call }
+    let(:ticket) { build(:ticket, seat: '1') }
+    let(:reservation) { create(:reservation, tickets: [ticket]) }
+    let(:id) { reservation.id }
 
     it 'cancels reservation' do
       expect { cancel_reservation }.to change { reservation.reload.status }.from('booked').to('cancelled')

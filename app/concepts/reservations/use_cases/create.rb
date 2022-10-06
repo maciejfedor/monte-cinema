@@ -1,15 +1,13 @@
 module Reservations
   module UseCases
     class Create
-      attr_reader :screening_id, :user_id, :seats, :status, :errors, :repository
+      attr_reader :screening_id, :user_id, :seats, :status
 
-      def initialize(screening_id:, user_id:, seats:, status:, repository: ReservationRepository.new)
+      def initialize(screening_id:, user_id:, seats:, status:)
         @screening_id = screening_id
         @user_id = user_id
-        @repository = repository
         @seats = seats
         @status = status
-        @errors = []
       end
 
       def call
