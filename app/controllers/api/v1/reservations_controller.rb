@@ -2,8 +2,8 @@ module Api
   module V1
     class ReservationsController < ApiController
       def create
-        @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id],
-                                                                seats: params.dig(:reservation, :seats), status: :accepted).call
+        @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
+                                                          seats: params[:seats], status: :booked).call
         if @reservation.errors.none?
           render json: ReservationSerializer.new(@reservation)
         else
