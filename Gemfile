@@ -9,6 +9,7 @@ gem 'bootstrap-sass', '3.4.1'
 gem 'devise', '~> 4.8', '>= 4.8.1'
 gem 'importmap-rails', '~> 1.1', '>= 1.1.5'
 gem 'jbuilder', '~> 2.6'
+gem 'jsonapi-serializer', '~> 2.2'
 gem 'pagy', '~> 5.10'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
@@ -39,8 +40,8 @@ end
 
 group :test do
   gem 'capybara', '~> 3.37', '>= 3.37.1'
+  gem 'rspec-sidekiq', '~> 3.1'
   gem 'selenium-webdriver', '~> 4.4'
   gem 'simplecov', '~> 0.21.2', require: false
   gem 'webdrivers', '~> 5.1'
-  gem 'rspec-sidekiq', '~> 3.1'
 end
