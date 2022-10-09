@@ -212,11 +212,18 @@ table, td { color: #000000; } #u_body a { color: #0000ee; text-decoration: under
     <tr>
       <td style="overflow-wrap:break-word;word-break:break-word;padding:10px 15px;font-family:arial,helvetica,sans-serif;" align="left">
         
-  <div style="color: #34495e; line-height: 140%; text-align: left; word-wrap: break-word;">
-    <p style="font-size: 14px; line-height: 140%;"><span style="font-size: 24px; line-height: 33.6px; font-family: helvetica, sans-serif;"><strong>Hi!</strong></span></p>
-<p style="font-size: 14px; line-height: 140%;"><br /><span style="font-size: 16px; line-height: 22.4px; font-family: Raleway, sans-serif;">Your reservation for movie <%= @screening.movie.title %> on <%= @screening.start_time.strftime("%d/%m/%Y %H:%M")%> has been cancelled.</span></p>
-
-<br /> 
+ <div style="color: #34495e; line-height: 140%; text-align: left; word-wrap: break-word;">
+<p style="font-size: 14px; line-height: 140%;"><br /><span style="font-size: 16px; line-height: 22.4px; font-family: Raleway, sans-serif;">Reservation details:</span></p>
+<p style="font-size: 14px; line-height: 140%;"><br /><span style="font-family: Raleway, sans-serif; font-size: 14px; line-height: 19.6px;">Movie: <%= @screening.movie.title %></span></p>
+<p style="font-size: 14px; line-height: 140%;"><span style="font-family: Raleway, sans-serif; font-size: 14px; line-height: 19.6px;">Hall: <%= @screening.hall.name %> </span></p>
+<p style="font-size: 14px; line-height: 140%;"><span style="font-family: Raleway, sans-serif; font-size: 14px; line-height: 19.6px;">Date: <%= @screening.start_time.strftime("%d/%m/%Y %H:%M") %></span></p>
+<p style="font-size: 14px; line-height: 140%;"> </p>
+<p style="font-size: 14px; line-height: 140%;"><br /><span style="font-family: Raleway, sans-serif; font-size: 16px; line-height: 22.4px;">Tickets:</span></p>
+<% @reservation.tickets.each do |ticket|%>
+<p style="font-size: 14px; line-height: 140%;"><br /><span style="font-family: Raleway, sans-serif; font-size: 14px; line-height: 19.6px;">Seat <%= ticket.seat %></span></p>
+<%end%>
+<p style="font-size: 14px; line-height: 140%;"> </p>
+<p style="font-size: 14px; line-height: 140%;"> <br /></p>
 <p style="font-size: 14px; line-height: 140%;"><strong>Monte Cinema</strong><br />                </p>
   </div>
 
