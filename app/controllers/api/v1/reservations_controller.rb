@@ -8,7 +8,7 @@ module Api
                                                           seats: params.dig(:reservations, :seats), status: :booked).call
         if @reservation.errors.none?
           render json: ReservationSerializer.new(@reservation, include: %i[user tickets screening.movie screening.hall],
-                                                               fields: { user: [:email], tickets: [:seat], screening: %i[start_time movie hall], movie: %i[title duration], hall: [:name] })
+                                                               fields: { user: [:email], tickets: [:seat], screening: %i[start_time movie hall], movie: %i[title duration], hall: [:name] }), status: :created
         else
           render json: @reservation.errors, status: :unprocessable_entity
         end
