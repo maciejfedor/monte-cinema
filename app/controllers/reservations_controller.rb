@@ -14,6 +14,7 @@ class ReservationsController < ApplicationController
     if @reservation.errors.any?
       render :new, status: :unprocessable_entity
     else
+      ConfirmationMailJob.perform_later(@reservation.id)
       redirect_to reservation_path(@reservation)
     end
   end
@@ -40,6 +41,7 @@ class ReservationsController < ApplicationController
     @reservation = Reservations::UseCases::Find.new(id: params[:id]).call
     authorize @reservation
     @reservation = Reservations::UseCases::Cancel.new(id: params[:id]).call
+    CancellationMailJob.perform_later(@reservation.id)
     redirect_to reservation_path(@reservation)
   end
 
