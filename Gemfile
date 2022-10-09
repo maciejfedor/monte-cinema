@@ -23,7 +23,7 @@ gem 'sprockets-rails'
 gem 'stimulus-rails', '~> 1.1'
 gem 'turbo-rails', '~> 1.3'
 gem 'tzinfo-data', '~> 1.2022', '>= 1.2022.4', platforms: %i[mingw mswin x64_mingw jruby]
-
+gem 'devise_token_auth', '~> 1.2'
 group :development, :test do
   gem 'debug', '~> 1.6', '>= 1.6.2', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 6.2.0'
