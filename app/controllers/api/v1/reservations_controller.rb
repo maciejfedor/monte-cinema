@@ -7,8 +7,8 @@ module Api
         @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
                                                           seats: params.dig(:reservations, :seats), status: :booked).call
         if @reservation.errors.none?
-          render json: ReservationSerializer.new(@reservation, include: %i[user tickets screening.movie screening.hall],
-                                                               fields: { user: [:email], tickets: [:seat], screening: %i[start_time movie hall], movie: %i[title duration], hall: [:name] }), status: :created
+          render json: ReservationSerializer.new(@reservation, include: include_options, fields: fields_options),
+                 status: :created
         else
           render json: @reservation.errors, status: :unprocessable_entity
         end
@@ -16,8 +16,16 @@ module Api
 
       def show
         @reservation = Reservations::UseCases::Find.new(id: params[:id]).call
-        render json: ReservationSerializer.new(@reservation, include: %i[user tickets screening.movie screening.hall],
-                                                             fields: { user: [:email], tickets: [:seat], screening: %i[start_time movie hall], movie: %i[title duration], hall: [:name] })
+        render json: ReservationSerializer.new(@reservation, include: include_options, fields: fields_options)
+      end
+
+      def include_options
+        %i[user tickets screening.movie screening.hall]
+      end
+
+      def fields_options
+        { user: [:email], tickets: [:seat], screening: %i[start_time movie hall], movie: %i[title duration],
+          hall: [:name] }
       end
     end
   end
