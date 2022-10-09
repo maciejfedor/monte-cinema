@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Screenings', type: :request do
+  subject(:screening) { create(:screening, movie_id: movie.id, hall_id: hall.id) }
   let(:movie) { create(:movie) }
   let(:hall) { create(:hall) }
-  let(:screening) { create(:screening, movie_id: movie.id, hall_id: hall.id) }
 
   before do
     hall
