@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
+
   require 'sidekiq/web'
   require 'sidekiq/cron/web'
   mount Sidekiq::Web => '/sidekiq'
-  devise_for :users
   root 'pages#home'
   resources :movies do
     resources :screenings, only: [:show]
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      mount_devise_token_auth_for 'User', at: 'auth'
       resources :movies, only: %i[index show] do
         resources :screenings, only: %i[show]
       end
