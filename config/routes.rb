@@ -21,15 +21,14 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       mount_devise_token_auth_for 'User', at: 'auth'
-      resources :movies, only: %i[index show] do
-        resources :screenings, only: %i[show]
-      end
-      resources :screenings, only: %i[index show] do
+      resources :movies, only: %i[index show]
+
+      resources :screenings, only: %i[show] do
         resources :reservations, only: %i[create]
 
         post '/reservations', to: 'reservations#create'
       end
-      resources :reservations, only: %i[index show update destroy]
+      resources :reservations, only: %i[show]
     end
   end
 end
