@@ -1,24 +1,23 @@
 module Api
   module V1
     class ReservationsController < ApiController
+      before_action :authenticate_user!
+
       def create
         @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
-                                                          seats: params[:seats], status: :booked).call
+                                                          seats: params.dig(:reservations, :seats), status: :booked).call
         if @reservation.errors.none?
-          render json: ReservationSerializer.new(@reservation)
+          render json: ReservationSerializer.new(@reservation, include: %i[user tickets screening.movie screening.hall],
+                                                               fields: { user: [:email], tickets: [:seat], screening: %i[start_time movie hall], movie: %i[title duration], hall: [:name] })
         else
-          render json: @reservation.errors, status: 500
+          render json: @reservation.errors, status: :unprocessable_entity
         end
       end
 
       def show
         @reservation = Reservations::UseCases::Find.new(id: params[:id]).call
-        render json: ReservationSerializer.new(@reservation)
-      end
-
-      def index
-        @reservation = Reservations::UseCases::FindAll.new.call
-        render json: ReservationSerializer.new(@reservation, include: [:tickets])
+        render json: ReservationSerializer.new(@reservation, include: %i[user tickets screening.movie screening.hall],
+                                                             fields: { user: [:email], tickets: [:seat], screening: %i[start_time movie hall], movie: %i[title duration], hall: [:name] })
       end
     end
   end

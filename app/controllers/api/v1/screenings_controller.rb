@@ -1,14 +1,14 @@
 module Api
   module V1
     class ScreeningsController < ApiController
-      def index
-        @screenings = Screening.all
-        render json: ScreeningSerializer.new(@screenings, { include: %i[hall movie] })
-      end
+      before_action :authenticate_user!
 
       def show
         @screening = Screening.find(params[:id])
-        render json: ScreeningSerializer.new(@screening)
+        render json: ScreeningSerializer.new(@screening, include: %i[movie hall], fields: {
+                                               movie: %i[title duration],
+                                               hall: [:name]
+                                             })
       end
     end
   end

@@ -8,7 +8,7 @@ module Api
 
       def show
         @movie = Movie.find(params[:id])
-        render json: MovieSerializer.new(@movie)
+        render json: MovieSerializer.new(@movie, include: [:screenings])
       end
     end
   end
