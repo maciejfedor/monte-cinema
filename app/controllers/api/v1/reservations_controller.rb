@@ -11,6 +11,7 @@ module Api
           status: :booked
         ).call
         if @reservation.errors.none?
+          ConfirmationMailJob.perform_later(@reservation.id)
           render json: ReservationSerializer.new(@reservation, include: include_options, fields: fields_options),
                  status: :created
         else

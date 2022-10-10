@@ -11,7 +11,7 @@ module Reservations
     end
 
     def find_all
-      adapter.includes(:tickets)
+      adapter.includes(:screening)
     end
 
     def create_reservation!(params)
