@@ -25,8 +25,5 @@ end
   User.create!(email: "user#{i}@example.com", role: 'user', password: 'password')
 end
 
-
 User.create(email: 'manager@example.com', role: 'manager', password: 'password')
 User.create(email: 'admin@example.com', role: 'admin', password: 'password')
-
-

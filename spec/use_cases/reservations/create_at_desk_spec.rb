@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Reservations::UseCases::CreateAtDesk do
-  subject(:instance) { described_class.new(screening_id: screening.id, seats:, status: :booked ).call }
+  subject(:instance) { described_class.new(screening_id: screening.id, seats:, status: :booked).call }
   let(:seats) { [*'10'..'13'] }
   let(:user) { create(:user) }
   let(:movie) { create(:movie) }
