@@ -8,7 +8,7 @@ RSpec.describe Reservations::UseCases::Update do
     let(:screening) { create(:screening, hall:, movie:, start_time: Date.current + 2.days) }
     let(:ticket) { build(:ticket, seat: '1') }
     let(:reservation) { create(:reservation, tickets: [ticket]) }
-   
+
     it 'updates reservation status' do
       expect { update_reservation }.to change { reservation.reload.status }.from('booked').to('accepted')
     end

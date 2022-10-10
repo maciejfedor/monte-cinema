@@ -1,0 +1,12 @@
+Your reservation has been cancelled!
+
+Reservation details:
+
+Movie: <%= @screening.movie.title %>
+Hall: <%= @screening.hall.name %>
+Date: <%= @screening.start_time.strftime("%d/%m/%Y %H:%M") %>
+Tickets:
+<% @reservation.tickets.each do |ticket|%>
+  Seat <%= ticket.seat %>
+<%end%>
+Monte Cinema

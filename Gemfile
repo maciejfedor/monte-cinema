@@ -7,8 +7,10 @@ ruby '3.1.2'
 gem 'bootsnap', '~> 1.13', require: false
 gem 'bootstrap-sass', '3.4.1'
 gem 'devise', '~> 4.8', '>= 4.8.1'
+gem 'devise_token_auth', '~> 1.2'
 gem 'importmap-rails', '~> 1.1', '>= 1.1.5'
 gem 'jbuilder', '~> 2.6'
+gem 'jsonapi-serializer', '~> 2.2'
 gem 'pagy', '~> 5.10'
 gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
@@ -22,7 +24,6 @@ gem 'sprockets-rails'
 gem 'stimulus-rails', '~> 1.1'
 gem 'turbo-rails', '~> 1.3'
 gem 'tzinfo-data', '~> 1.2022', '>= 1.2022.4', platforms: %i[mingw mswin x64_mingw jruby]
-
 group :development, :test do
   gem 'debug', '~> 1.6', '>= 1.6.2', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 6.2.0'
@@ -39,8 +40,8 @@ end
 
 group :test do
   gem 'capybara', '~> 3.37', '>= 3.37.1'
+  gem 'rspec-sidekiq', '~> 3.1'
   gem 'selenium-webdriver', '~> 4.4'
   gem 'simplecov', '~> 0.21.2', require: false
   gem 'webdrivers', '~> 5.1'
-  gem 'rspec-sidekiq', '~> 3.1'
 end

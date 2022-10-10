@@ -23,5 +23,6 @@ class CancelPendingReservationsJob < ApplicationJob
 
   def cancel_reservation(reservation)
     Reservations::UseCases::Cancel.new(id: reservation.id).call
+    CancellationMailJob.perform_now(reservation.id) if reservation.user
   end
 end
