@@ -10,7 +10,6 @@ RSpec.describe 'Reservations', type: :request do
   let(:auth_headers) { user.create_new_auth_token }
 
   describe 'GET api/v1/reservations/reservation_id' do
-
     it 'returns succesful response' do
       get api_v1_reservation_url(reservation), headers: auth_headers
       expect(response).to have_http_status(200)
@@ -26,7 +25,7 @@ RSpec.describe 'Reservations', type: :request do
       }
     end
     it 'returns succesful response' do
-      post("/api/v1/screenings/#{screening.id}/reservations", params: params, headers: auth_headers)
+      post("/api/v1/screenings/#{screening.id}/reservations", params:, headers: auth_headers)
       expect(response).to have_http_status(201)
     end
 
@@ -39,12 +38,9 @@ RSpec.describe 'Reservations', type: :request do
         }
       end
       it 'returns 422 status' do
-        post("/api/v1/screenings/#{screening.id}/reservations", params: params, headers: auth_headers)
+        post("/api/v1/screenings/#{screening.id}/reservations", params:, headers: auth_headers)
         expect(response).to have_http_status(422)
       end
-
-
-
     end
   end
 end

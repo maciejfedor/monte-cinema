@@ -4,8 +4,12 @@ module Api
       before_action :authenticate_user!
 
       def create
-        @reservation = Reservations::UseCases::Create.new(screening_id: params[:screening_id], user_id: current_user.id,
-                                                          seats: params.dig(:reservations, :seats), status: :booked).call
+        @reservation = Reservations::UseCases::Create.new(
+          screening_id: params[:screening_id],
+          user_id: current_user.id,
+          seats: params.dig(:reservations, :seats),
+          status: :booked
+        ).call
         if @reservation.errors.none?
           ConfirmationMailJob.perform_later(@reservation.id)
           render json: ReservationSerializer.new(@reservation, include: include_options, fields: fields_options),
@@ -25,8 +29,13 @@ module Api
       end
 
       def fields_options
-        { user: [:email], tickets: [:seat], screening: %i[start_time movie hall], movie: %i[title duration],
-          hall: [:name] }
+        {
+          user: [:email],
+          tickets: [:seat],
+          screening: %i[start_time movie hall],
+          movie: %i[title duration],
+          hall: [:name]
+        }
       end
     end
   end

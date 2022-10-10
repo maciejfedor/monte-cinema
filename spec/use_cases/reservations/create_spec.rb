@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Reservations::UseCases::Create do
-  subject(:instance) { described_class.new(screening_id: screening.id, user_id: user.id, seats:, status: :booked  ).call }
+  subject(:instance) do
+    described_class.new(screening_id: screening.id, user_id: user.id, seats:, status: :booked).call
+  end
   let(:seats) { [*'10'..'13'] }
   let(:user) { create(:user) }
   let(:movie) { create(:movie) }
@@ -27,7 +29,9 @@ RSpec.describe Reservations::UseCases::Create do
 
     context 'when seats invalid' do
       let(:seats) { [] }
-      subject(:instance) { described_class.new(screening_id: screening.id, user_id: user.id, seats:, status: :booked).call }
+      subject(:instance) do
+        described_class.new(screening_id: screening.id, user_id: user.id, seats:, status: :booked).call
+      end
       it 'does not create reservation' do
         expect { instance }.not_to change(Reservation, :count)
       end

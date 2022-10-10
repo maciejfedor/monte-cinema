@@ -12,11 +12,10 @@ class AddTokensToUsers < ActiveRecord::Migration[7.0]
       user.save!
     end
 
-    add_index :users, [:uid, :provider], unique: true
+    add_index :users, %i[uid provider], unique: true
 
     def down
       remove_columns :users, :provider, :uid, :tokens
     end
-
   end
 end
