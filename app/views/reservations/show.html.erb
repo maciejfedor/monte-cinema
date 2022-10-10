@@ -12,7 +12,7 @@
       <p class="card-text"><%= "Ticket id: #{t.id}" %></p>
     <%end%>
     <%if @reservation.booked?%>
-      <%if current_user.manager? || current_user.admin?%>
+      <%if policy(@reservation).update?%>
         <%= form_with(url: reservation_path, method: "put") do |f|%>
           <%= f.button  "Accept", type: 'submit', name: 'status', value: "accepted", class: "btn btn-outline-success btn-lg" %>
         <%end%>

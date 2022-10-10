@@ -5,10 +5,10 @@
 <%if @movie.screenings.any?%>
   <div class="screenings">
     <% @movie.screenings.each do |screening| %>
-      <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_screening_path(@movie.id), method: :get%>
+      <%= button_to "#{screening.start_time.strftime("%d/%m/%Y %H:%M")}", movie_screening_path(@movie.id, screening), method: :get%>
     <% end %>
   <% end %>
-  <% if user_signed_in? && !current_user.user? %>
+  <% if user_signed_in? && policy(@movie).update? %>
     <%= button_to 'Edit Movie', edit_movie_path(@movie), class: "btn btn-secondary mb-3", method: :get%>
     <%= button_to 'Delete Movie', @movie,  method: :delete, class: "btn btn-danger mb-3"%>
   <% end %>
