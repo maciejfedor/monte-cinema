@@ -14,8 +14,4 @@ class Screening < ApplicationRecord
   def calculate_end_time
     self.end_time = start_time + ADS_DURATION + movie.duration.minutes if start_time.present?
   end
-
-  def deadline
-    Time.current.after?(start_time - 30.minutes)
-  end
 end
