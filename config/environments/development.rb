@@ -68,7 +68,7 @@ Rails.application.configure do
     Bullet.rails_logger = true
   end
 
-  config.action_mailer.default_url_options = { host: 'monte-cinema-rails-monte-cinema-pr-20.up.railway.app'}
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => '127.0.0.1', :port => 1025 }
