@@ -19,12 +19,14 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= [5, *ENV.values_at("RAILS_MAX_THREADS", "SIDEKIQ CONCURRENCY")].map(&:to_i).max %>
 
 development:
   <<: *default
   database: monte_cinema_development
-
+  host: <%= ENV["DATABASE_HOST"] %>
+  username: <%= ENV["DATABASE_USER"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
@@ -81,6 +83,4 @@ test:
 #
 production:
   <<: *default
-  database: monte_cinema_production
-  username: monte_cinema
-  password: <%= ENV["MONTE_CINEMA_DATABASE_PASSWORD"] %>
+
