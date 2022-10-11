@@ -112,6 +112,10 @@ GEM
     diff-lcs (1.5.0)
     digest (3.1.0)
     docile (1.4.0)
+    dotenv (2.8.1)
+    dotenv-rails (2.8.1)
+      dotenv (= 2.8.1)
+      railties (>= 3.2)
     erubi (1.11.0)
     et-orbi (1.2.7)
       tzinfo
@@ -336,6 +340,7 @@ DEPENDENCIES
   debug (~> 1.6, >= 1.6.2)
   devise (~> 4.8, >= 4.8.1)
   devise_token_auth (~> 1.2)
+  dotenv-rails (~> 2.8, >= 2.8.1)
   factory_bot_rails (~> 6.2.0)
   faker (~> 2.23)
   importmap-rails (~> 1.1, >= 1.1.5)
