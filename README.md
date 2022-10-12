@@ -1,24 +1,41 @@
-# README
+# MONTE CINEMA
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ LIVE SITE URL: [MONTE CINEMA](https://monte-cinema-rails-production.up.railway.app/)
 
-Things you may want to cover:
+## Requirements
+- ruby 3.1.2
+- rails 7.0.3.1
+- postgresql 14.5
+- redis
 
-* Ruby version
+## Setup
 
-* System dependencies
+```
+bundle install
+```
 
-* Configuration
+### Database creation
 
-* Database creation
+```
+rails db:create
+```
 
-* Database initialization
+### Database initialization
 
-* How to run the test suite
+```
+rails db:migrate
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Seeds
 
-* Deployment instructions
+```
+rails db:seed
+```
 
-* ...
+## Services
+
+Sidekiq - job queues
+
+
+
+
