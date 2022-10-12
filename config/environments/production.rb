@@ -100,6 +100,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              ENV["GMAIL_ADDRESS_URL"],
     port:                 587,
+    domain:               ENV["GMAIL_DOMAIN"],
     user_name:            ENV["GMAIL_USER_NAME"],
     password:             ENV["GMAIL_PASSWORD"],
     authentication:       'plain',
