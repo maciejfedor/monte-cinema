@@ -69,10 +69,19 @@ Rails.application.configure do
   end
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  
+  config.action_mailer.raise_delivery_errors = true
+
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => '127.0.0.1', :port => 1025 }
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.smtp_settings = {
+    address:              ENV["GMAIL_ADDRESS_URL_DEV"],
+    port:                 587,
+    domain:               ENV["GMAIL_DOMAIN_DEV"],
+    user_name:            ENV["GMAIL_USER_NAME_DEV"],
+    password:             ENV["GMAIL_PASSWORD_DEV"],
+    authentication:       'plain',
+    enable_starttls_auto: true,
+    open_timeout:         5,
+    read_timeout:         5 }
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
