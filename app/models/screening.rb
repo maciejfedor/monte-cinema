@@ -1,7 +1,7 @@
 class Screening < ApplicationRecord
   belongs_to :movie
   belongs_to :hall
-  has_many :reservations
+  has_many :reservations, dependent: :destroy
   validates :end_time, comparison: { greater_than: :start_time }, presence: true
   validates :start_time, comparison: { greater_than: Time.current }, presence: true
   before_validation :calculate_end_time
