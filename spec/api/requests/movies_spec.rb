@@ -31,8 +31,8 @@ RSpec.describe 'Movies', type: :request do
     let(:movie) { create(:movie) }
     let(:movie_attr) do
       {
-        title: 'Title',
-        duration: 120
+        title: movie.title,
+        duration: movie.duration
       }
     end
 
