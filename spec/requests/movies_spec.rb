@@ -275,11 +275,10 @@ RSpec.describe '/movies', type: :request do
         end
         it 'updates movie record' do
           expect { put("/movies/#{movie.id}", params:) }.to change {
-                                                              movie.reload.title
-                                                            }.from('title').to('title updated')
-            .and change {
-                   movie.reload.duration
-                 }.from(100).to(120)
+          movie.reload.title
+          }.from('title').to('title updated').and change {
+          movie.reload.duration
+          }.from(100).to(120)
         end
       end
     end
