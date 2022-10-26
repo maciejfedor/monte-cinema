@@ -254,7 +254,7 @@ RSpec.describe '/screenings', type: :request do
       end
 
       it 'does not update screening record' do
-        expect { put("/screenings/#{screening.id}", params:) }.not_to change(Screening, :count)
+        expect { put("/screenings/#{screening.id}", params:) }.not_to change { screening.reload.start_time }
       end
 
       it 'renders new template' do

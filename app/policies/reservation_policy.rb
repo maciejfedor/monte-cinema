@@ -9,7 +9,7 @@ class ReservationPolicy < ApplicationPolicy
   class Scope < Scope
     def resolve
       if user.manager?
-        scope.all
+        Reservations::UseCases::FindAll.new.call
       else
         scope.where(user_id: user.id)
       end
@@ -39,7 +39,6 @@ class ReservationPolicy < ApplicationPolicy
   def destroy?
     owns_reservation?
   end
-
 
   private
 
