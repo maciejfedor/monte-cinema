@@ -4,7 +4,7 @@
     <div class="card-header">
       <h5 class="card-title"><%= "Reservation no. #{reservation.id}" %> <span class="badge bg-secondary"><%= "status: #{reservation.status}"%></span></h5>
       <% if reservation.user_id.present?%>
-        <p class="card-text"><%= "User: #{reservation.user_id}"%></p>
+        <p class="card-text"><%= "User: #{reservation.user.email}"%></p>
       <% end %>
     </div>
     <div class="card-body">

@@ -14,10 +14,6 @@ module Reservations
       adapter.includes(:screening)
     end
 
-    def create_reservation!(params)
-      adapter.create!(params)
-    end
-
     def update_reservation!(id, params)
       adapter.update!(id, params)
     end

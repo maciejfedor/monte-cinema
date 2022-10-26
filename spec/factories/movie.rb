@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :movie do
-    title { 'Title' }
-    duration { 120 }
+    title { Faker::Movie.title }
+    duration { (60..200).to_a.sample }
   end
 end

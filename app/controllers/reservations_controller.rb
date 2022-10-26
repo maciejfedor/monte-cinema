@@ -51,8 +51,7 @@ class ReservationsController < ApplicationController
   end
 
   def index
-    @reservations = Reservations::UseCases::FindAll.new.call
-    authorize @reservations
+    @reservations = policy_scope(Reservation)
     @pagy, @reservations = pagy(@reservations.order(created_at: :desc))
   end
 

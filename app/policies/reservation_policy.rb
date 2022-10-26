@@ -1,4 +1,4 @@
-class ReservationPolicy
+class ReservationPolicy < ApplicationPolicy
   attr_reader :user, :reservation
 
   def initialize(user, reservation)
@@ -6,12 +6,18 @@ class ReservationPolicy
     @reservation = reservation
   end
 
-  def show?
-    owns_reservation?
+  class Scope < Scope
+    def resolve
+      if user.manager?
+        Reservations::UseCases::FindAll.new.call
+      else
+        scope.where(user_id: user.id)
+      end
+    end
   end
 
-  def index?
-    manager_or_admin?
+  def show?
+    owns_reservation?
   end
 
   def new?
