@@ -15,7 +15,7 @@ class CancelAllReservationsJob < ApplicationJob
   attr_reader :reservation, :screening_id
 
   def reservations(screening_id)
-    Reservation.where.not(status: :cancelled).where(screening_id: screening_id)
+    Reservation.where.not(status: :cancelled).where(screening_id:)
   end
 
   def cancel_reservation(reservation)
