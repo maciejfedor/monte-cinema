@@ -1,10 +1,14 @@
 class Reservation < ApplicationRecord
   belongs_to :screening
   belongs_to :user, optional: true
-  has_many :tickets, dependent: :destroy
+  has_many :tickets
   validates :status, presence: true
   enum :status, { booked: 0, cancelled: 1, accepted: 2 }
   validate :validate_reservation, on: :create
+
+  def screening
+    Screening.with_deleted.find(screening_id)
+  end
 
   def validate_reservation
     errors.add(:base, message: 'Choose at least one seat') if seats.compact_blank.blank?
