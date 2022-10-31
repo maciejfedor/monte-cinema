@@ -1,16 +1,31 @@
 4.times do
-  Hall.create!(name: Faker::Color.color_name, capacity: 50)
+  Hall.create!(name: Faker::Coffee.blend_name, capacity: 50)
 end
 
 4.times do
-  Hall.create!(name: Faker::Color.color_name, capacity: 100)
+  Hall.create!(name: Faker::Coffee.blend_name, capacity: 100)
 end
 
-Hall.create!(name: Faker::Color.color_name, capacity: 200)
-Hall.create!(name: Faker::Color.color_name, capacity: 20)
+Hall.create!(name: Faker::Coffee.blend_name, capacity: 200)
+Hall.create!(name: Faker::Coffee.blend_name, capacity: 20)
 
-12.times do
-  Movie.create!(title: Faker::Movie.title, duration: (60..200).to_a.sample)
+
+def page_number
+  (1..98).to_a.sample
+end
+
+def movie_number
+  (1..19).to_a.sample
+end
+
+def movies
+  ApiExternal::MoviesDataController.new.movies(page_number)
+end
+
+20.times do
+  title = movies[:results][movie_number][:title]
+  poster = movies[:results][movie_number][:poster_path]
+  Movie.create!(title: title, duration: (60..200).to_a.sample, poster: poster)
 end
 
 movie_ids = Movie.pluck :id
